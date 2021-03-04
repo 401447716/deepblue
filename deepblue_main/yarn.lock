@@ -2,7 +2,7 @@
 # yarn lockfile v1
 
 
-"@babel/runtime@^7.1.2", "@babel/runtime@^7.12.18":
+"@babel/runtime@^7.1.2":
   version "7.12.18"
   resolved "https://registry.npm.taobao.org/@babel/runtime/download/@babel/runtime-7.12.18.tgz?cache=0&sync_timestamp=1613665243059&other_urls=https%3A%2F%2Fregistry.npm.taobao.org%2F%40babel%2Fruntime%2Fdownload%2F%40babel%2Fruntime-7.12.18.tgz#af137bd7e7d9705a412b3caaf991fe6aaa97831b"
   integrity sha1-rxN71+fZcFpBKzyq+ZH+aqqXgxs=

@@ -1,0 +1,36 @@
+.multiple {
+  .title {
+    font-size: 18px;
+    font-weight: 700;
+  }
+  .indexModule {
+    margin-bottom: 20px;
+    input {
+      width: 200px;
+    }
+  }
+  .question {
+    .questionBox {
+      padding-top: 10px;
+      margin-bottom: 10px;
+      border-bottom: solid 2px #EFEFEF;
+      .selectBox {
+        display: flex;
+        align-items: center;
+        margin-left: -5px;
+        span {
+          margin: 0 5px 0 15px;
+        }
+        .inputBox {
+          width: 100px;
+        }
+      }
+      .delBtn {
+        margin-left: 20px;
+      }
+    }
+    .numInput {
+      margin-left: 10px;
+    }
+  }
+}

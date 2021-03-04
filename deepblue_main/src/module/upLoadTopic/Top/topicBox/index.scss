@@ -1,6 +1,5 @@
 .topicBox {
   .top {
-    border-bottom: solid 2px #EFEFEF;
     .title {
       font-size: 20px;
       font-weight: 700;
@@ -13,7 +12,6 @@
     }
   }
   .topicTypeSetting {
-    border-bottom: solid 2px #EFEFEF;
     .title {
       font-size: 20px;
       font-weight: 700;
@@ -29,42 +27,6 @@
     .title {
       font-size: 20px;
       font-weight: 700;
-    }
-    .topicData {
-      margin-left: 30px;
-    }
-    .single {
-      .title {
-        font-size: 18px;
-        font-weight: 700;
-      }
-      .indexModule {
-        margin-bottom: 20px;
-        input {
-          width: 200px;
-        }
-      }
-      .question {
-        .questionBox {
-          padding-top: 10px;
-          margin-bottom: 10px;
-          border-bottom: solid 2px #EFEFEF;
-          .selectBox {
-            .el-form-item__label {
-              width: auto !important;
-            }
-            .inputBox {
-              width: 100px;
-            }
-          }
-          .delBtn {
-            margin-left: 20px;
-          }
-        }
-        .numInput {
-          margin-left: 10px;
-        }
-      }
     }
   }
 }
