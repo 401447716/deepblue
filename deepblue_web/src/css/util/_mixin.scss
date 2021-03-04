@@ -1,0 +1,155 @@
+@charset "utf-8";
+// https://github.com/amazeui/amazeui-sass/blob/master/scss/mixins.scss
+
+// Micro clear fix
+// via: http://nicolasgallagher.com/micro-clearfix-hack/
+@mixin clearfix() {
+  &:before,
+  &:after {
+    content: " ";
+    display: table;
+  }
+
+  &:after {
+    clear: both;
+  }
+}
+
+@mixin text-overflow() {
+  word-wrap: normal; /* for IE */
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+
+// Center-align a block level element
+@mixin center-block() {
+  display: block;
+  margin-left: auto;
+  margin-right: auto;
+}
+
+// CSS image replacement
+// via: https://github.com/h5bp/html5-boilerplate/commit/aa0396eae757
+// -----------------------------------------------------------------------------
+
+@mixin text-hide() {
+  font: unquote("0/0") a;
+  color: transparent;
+  text-shadow: none;
+  background-color: transparent;
+  border: 0;
+}
+
+
+// Line clamp
+// http://dropshado.ws/post/1015351370/webkit-line-clamp
+// -----------------------------------------------------------------------------
+
+@mixin am-line-clamp($lines, $line-height: 1.3em) {
+  text-overflow: ellipsis;
+  display: -webkit-box;
+  -webkit-box-orient: vertical;
+  -webkit-line-clamp: $lines; // number of lines to show
+  overflow: hidden;
+  line-height: $line-height;
+  max-height: $line-height * $lines;
+}
+
+
+@mixin placeholder($color: $input-color-placeholder) {
+  // Firefox
+  &::-moz-placeholder {
+    color: $color;
+    opacity: 1;
+  }
+
+  // Internet Explorer 10+
+  &:-ms-input-placeholder {
+    color: $color;
+  }
+
+  // Safari and Chrome
+  &::-webkit-input-placeholder {
+    color: $color;
+  }
+}
+
+// =============================================================================
+// Caret
+// NOTE: If using ::before or ::after, `content: ""` is required
+// =============================================================================
+
+// Caret - down
+// -----------------------------------------------------------------------------
+@mixin caret-down($size: 6px, $color:#222) {
+  display: inline-block;
+  width: 0;
+  height: 0;
+  vertical-align: middle;
+  border-top: $size solid $color;
+  border-right: $size solid transparent;
+  border-left: $size solid transparent;
+  border-bottom: 0 dotted;
+  transform: rotate(360deg);
+}
+
+// Caret - up
+// -----------------------------------------------------------------------------
+@mixin caret-up($size:6px, $color:#222) {
+  display: inline-block;
+  width: 0;
+  height: 0;
+  vertical-align: middle;
+  border-bottom: $size solid $color;
+  border-right: $size solid transparent;
+  border-left: $size solid transparent;
+  border-top: 0 dotted;
+  transform: rotate(360deg);
+}
+
+// Caret - left
+// -----------------------------------------------------------------------------
+@mixin caret-left($size:6px, $color:#222) {
+  display: inline-block;
+  width: 0;
+  height: 0;
+  vertical-align: middle;
+  border-right: $size solid $color;
+  border-top: $size solid transparent;
+  border-bottom: $size solid transparent;
+  border-left: 0 dotted;
+  transform: rotate(360deg);
+}
+
+// Caret - right
+// -----------------------------------------------------------------------------
+@mixin caret-right($size:6px, $color:#222) {
+  display: inline-block;
+  width: 0;
+  height: 0;
+  vertical-align: middle;
+  border-left: $size solid $color;
+  border-top: $size solid transparent;
+  border-bottom: $size solid transparent;
+  border-right: 0 dotted;
+  transform: rotate(360deg);
+}
+
+// CSS Arrow Mixin
+// -----------------------------------------------------------------------------
+//
+// $param:  45deg (default) - right
+//          135deg - down
+//          -45deg - up
+//          -135deg -left
+// ------------------------------------------------------------------------
+
+@mixin arrow($color:#DDD, $width:6px, $border-width: 2px, $deg: 45deg) {
+  display: inline-block;
+  width: $width;
+  height: $width;
+  border: $color solid;
+  border-width: $border-width $border-width 0 0;
+  transform: rotate($deg);
+}

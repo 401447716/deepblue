@@ -1,0 +1,30 @@
+@charset "utf-8";
+%clearfix {
+  &:before,
+  &:after {
+    display: table;
+    content: "";
+  }
+  &:after {
+    clear: both;
+  }
+}
+
+%ir {
+  background-color: transparent;
+  background-repeat: no-repeat;
+  border: 0;
+  direction: ltr;
+  display: block;
+  overflow: hidden;
+  text-align: left;
+  text-indent: -999em;
+  br {
+    display: none;
+  }
+}
+
+%center {
+  margin-left: auto;
+  margin-right: auto;
+}

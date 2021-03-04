@@ -1,0 +1,13 @@
+.DS_Store
+node_modules
+npm-debug.log
+.idea
+.zip
+/dev
+.sass-cache
+config.json
+/output
+.vscode
+/mobile/node_modules
+/pc/node_modules
+/pc/debug.log

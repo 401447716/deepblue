@@ -1,0 +1,57 @@
+.top {
+  .listBox {
+    max-width: 1500px;
+    margin: 20px auto 0 auto;
+    .content {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      .title {
+        display: flex;
+        .icon {
+          height: 70px;
+          width: 70px;
+          background-image: url('~@/img/inline/video.png');
+          background-repeat:no-repeat;
+          background-size: 100% 100%;  
+          background-size: cover;
+        }
+      }
+      .classTypeList {
+        padding-left: 15px;
+        display: flex;
+        align-items: center;
+        span {
+          padding: 5px 10px;
+          display: block;
+          margin-right: 10px;
+          cursor: pointer;
+        }
+        .activeType {
+          border-radius: 6px;
+          color: #F00;
+          background-color: rgba(242, 13, 13, .06);
+          font-weight: 700;
+        }
+      }
+      .btn {
+        margin-right: 20px;
+      }
+    }
+  }
+  .plusBtn {
+    width: 28px;
+    height: 28px;
+    margin-top: 6px;
+    border-radius: 28px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    i {
+      margin-left: 5px;
+    }
+  }
+  .video {
+    width: 300px;
+  }
+}

@@ -1,0 +1,51 @@
+.newclass {
+  max-width: 1500px;
+  margin: 20px auto 0 auto;
+  .box-card {
+    width: 100%;
+  }
+  .clearfix {
+    clear: both;
+  }
+  .classList {
+    padding: 0 10px;
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: space-around;
+  }
+  .selectList {
+    .selectInput {
+      width: 300px;
+      margin: 0 10px;
+    }
+  }
+  .activeSelect {
+    border-radius: 6px;
+    color: #F00;
+    background-color: rgba(242, 13, 13, .06);
+    font-weight: 700;
+  }
+  .classBox {
+    width: 180px;
+    height: 260px;
+    .image {
+      width: 100%;
+      display: block;
+    }
+    .bottom {
+      margin-top: 13px;
+      line-height: 12px;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      .time {
+        font-size: 13px;
+        color: #999;
+      }
+    }
+  }
+  .page {
+    margin-top: 30px;
+    text-align: center;
+  }
+}

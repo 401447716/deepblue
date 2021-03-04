@@ -1,0 +1,54 @@
+html, body {
+  font-family: 'Roboto', 'Helvetica', sans-serif;
+  -webkit-tap-highlight-color: transparent;
+
+  &.no-scroll {
+    position: fixed;
+    width: 100%;
+  }
+}
+
+
+a {
+  text-decoration: none;
+  max-height: 100%;
+}
+
+p,
+a,
+div,
+section,
+header,
+footer {
+  box-sizing: border-box;
+  max-height: 99999rem;
+}
+
+html, body {
+  font-family: "Microsoft Yahei", "PingFang SC", -apple-system, BlinkMacSystemFont, "Helvetica Neue", STHeiti, Tahoma, Simsun, sans-serif;
+  padding: 0;
+  margin: 0;
+  height: 100%;
+  overflow: hidden;
+}
+
+*[role=button] {
+  user-select: none;
+  cursor: pointer;
+
+  &:hover {
+    opacity: 0.9;
+  }
+
+  &:active {
+    opacity: 0.8;
+  }
+}
+
+// 常用字体
+@font-face {
+  font-family: 'DIN-Bold';
+  src: url(//web.yystatic.com/public/global/font/DIN-Bold.ttf) format("truetype");
+  font-weight: normal;
+  font-style: normal;
+}

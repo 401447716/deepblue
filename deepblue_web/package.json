@@ -1,0 +1,21 @@
+{
+  "name": "deepblue_web",
+  "version": "1.0.0",
+  "description": "深蓝学习系统",
+  "author": "R_L",
+  "dependencies": {
+    "element-ui": "^2.14.1",
+    "vue": "^2.6.6",
+    "vue-router": "^3.3.4",
+    "vuex": "^3.6.0"
+  },
+  "scripts": {
+    "dev": "fec d",
+    "watch": "fec w",
+    "build": "fec o"
+  },
+  "devDependencies": {
+    "sass-resources-loader": "^2.0.0",
+    "vue-template-compiler": "^2.6.6"
+  }
+}
