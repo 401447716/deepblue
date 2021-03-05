@@ -4,6 +4,7 @@ import { Input, Form, Checkbox, Radio, InputNumber, Button, Collapse } from 'ele
 import Signle from './signle/index'
 import Multiple from './multiple/index'
 import Fill from './fill/index'
+import Subjective from './subjective/index'
 
 class topicBox extends Component {
   constructor () {
@@ -20,7 +21,7 @@ class topicBox extends Component {
       points: {
         haveLimit: '1',
         all: 100,
-        type: ['3']
+        type: ['4']
       },
       single: {
         defalutNum: 0,
@@ -143,6 +144,7 @@ class topicBox extends Component {
               { this.state.points.type.includes('1') && <Signle /> }
               { this.state.points.type.includes('2') && <Multiple /> }
               { this.state.points.type.includes('3') && <Fill /> }
+              { this.state.points.type.includes('4') && <Subjective /> }
             </div>
           </Collapse.Item>
         </Collapse>
