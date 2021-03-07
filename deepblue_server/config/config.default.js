@@ -49,6 +49,8 @@ module.exports = appInfo => {
       password: 'root',
       // 数据库名
       database: 'deepblue',
+      // 打印sql
+      debug: false
     },
     // 是否加载到 app 上，默认开启
     app: true,

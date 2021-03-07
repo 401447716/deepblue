@@ -1,40 +1,91 @@
 import React, { Component } from 'react'
 import './index.scss'
-import { Card, Button, Dialog } from 'element-react';
+import { Card, Button, Dialog, Message } from 'element-react';
 import TopicBox from './topicBox/index'
+import Api from '../../../utils/api'
+import emitter from '../../../utils/event'
 
 class Top extends Component {
   constructor () {
     super ()
     this.state = {
-      typeList: [
-        { id: 0, label: '全部'},
-        { id: 1, label: '公共基础'},
-        { id: 2, label: '计算机'},
-        { id: 3, label: '高等数学'},
-      ],
-      labelList: [
-        { id: 0, label: '全部'},
-        { id: 1, label: '标签1'},
-        { id: 2, label: '标签2'},
-        { id: 3, label: '标签3'},
-      ],
-      dialogVisible: true,
-      indexType: { id: 0, label: '全部'},
-      indexLabel: { id: 0, label: '全部'}
+      typeList: [],
+      dialogVisible: false,
+      indexType: null,
+      user: '',
     }
+    Api.getUser().then(
+      res => {
+        this.state.user = res.getUserInfo.account
+      }
+    )
+    this.topicBoxRef = React.createRef();
     this.clickType = this.clickType.bind(this)
-    this.clicklabel = this.clicklabel.bind(this)
+    this.getType = this.getType.bind(this)
+    this.addTopic = this.addTopic.bind(this)
+    this.getMyTopic = this.getMyTopic.bind(this)
+    this.getType()
+  }
+  getType () {
+    Api.getType().then(
+      res => {
+        if (!res.result) {
+          this.setState({
+            typeList: res.data,
+            indexType: res.data[0]
+          }, this.getMyTopic)
+        } else {
+          Message.error(res.msg)
+        }
+      }
+    )
+  }
+  getMyTopic () {
+    emitter.emit("getMyTopic", {
+      user: this.state.user,
+      id: this.state.indexType.id
+    })
+    // Api.getMyTopic(this.state.user, this.state.indexType.id).then(
+    //   res => {
+    //     console.log(res)
+    //   }
+    // )
   }
   clickType (val) {
     this.setState({
       indexType: val
-    })
+    }, this.getMyTopic)
   }
-  clicklabel (val) {
-    this.setState({
-      indexLabel: val
-    })
+  addTopic () {
+    let form = this.topicBoxRef.current.getAllTopicData()
+    let data = {
+      name: form.topic.name,
+      type: form.topic.type,
+      desc: form.topic.desc,
+      setTime: +form.topic.setTime,
+      time: +form.topic.setTime || -1,
+      share: +form.topic.share,
+      haveLimit: +form.topic.haveLimit,
+      limit: +form.topic.haveLimit ? form.topic.all : -1,
+      upLoader: this.state.user,
+      single: form.single || null,
+      multiple: form.multiple || null,
+      fill: form.fill || null,
+      subjective: form.subjective || null
+    }
+    Api.addTopic(data).then(
+      res => {
+        if (!res.result) {
+          Message.success('操作成功')
+          this.getMyTopic()
+          this.setState({
+            dialogVisible: false
+          })
+        } else {
+          Message.error(res.msg)
+        }
+      }
+    )
   }
   render () {
     return (
@@ -57,17 +108,6 @@ class Top extends Component {
                   })
                 }
               </div>
-              <div className='classTypeList'>
-                <p className='typeTitle'>分类：</p>
-                {
-                  this.state.labelList.map(item => {
-                    return (
-                      <span
-                        onClick={() => this.clicklabel(item)} key={item.id} className={this.state.indexLabel.id === item.id ? 'activeType' : ''}>{item.label}</span>
-                    )
-                  })
-                }
-              </div>
             </div>
             <div>
               <Button type="primary" onClick={ () => this.setState({ dialogVisible: true }) }>创建新题目</Button>
@@ -82,11 +122,11 @@ class Top extends Component {
           lockScroll={ false }
         >
           <Dialog.Body>
-            <TopicBox />
+            <TopicBox ref={this.topicBoxRef} typeList={this.state.typeList}/>
           </Dialog.Body>
           <Dialog.Footer className="dialog-footer">
             <Button onClick={ () => this.setState({ dialogVisible: false }) }>取消</Button>
-            <Button type="primary" onClick={ () => this.setState({ dialogVisible: false }) }>确定</Button>
+            <Button type="primary" onClick={ this.addTopic.bind(this) }>确定</Button>
           </Dialog.Footer>
         </Dialog>
       </div>

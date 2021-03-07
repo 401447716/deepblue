@@ -6,6 +6,7 @@
   "dependencies": {
     "element-react": "^1.4.34",
     "element-theme-default": "^1.4.13",
+    "events": "^3.3.0",
     "react": "^16.8.2",
     "react-dom": "^16.8.2",
     "react-hot-loader": "^4.5.3"

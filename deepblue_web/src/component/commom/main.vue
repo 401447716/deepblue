@@ -52,6 +52,7 @@ export default {
             this.$store.dispatch('upVuex', {
               mutations: 'setUserInfo',
               value: {
+                id: res.data.id,
                 icon: res.data.icon,
                 name: res.data.name,
                 account,
@@ -60,6 +61,7 @@ export default {
             })
             if (save) {
               locationStorageTools.set('deepblue_user', {
+                id: res.data.id,
                 icon: res.data.icon,
                 name: res.data.name,
                 account,

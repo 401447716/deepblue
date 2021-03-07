@@ -16,22 +16,20 @@ class topicBox extends Component {
         desc: '',
         setTime: '1',
         time: 60,
-        share: ''
+        share: '1'
       },
       points: {
         haveLimit: '1',
         all: 100,
-        type: ['4']
+        topicType: ''
       },
-      single: {
-        defalutNum: 0,
-        list: []
-      },
-      activeName: ['3']
+      activeName: ['1']
     }
-    this.addSingle = this.addSingle.bind(this)
-    this.delSingle = this.delSingle.bind(this)
-    this.upDateSingle = this.upDateSingle.bind(this)
+    this.singleRef = React.createRef();
+    this.multipleRef = React.createRef();
+    this.fillRef = React.createRef();
+    this.subjectiveRef = React.createRef();
+    this.getAllTopicData = this.getAllTopicData.bind(this)
   }
   onSubmit(e) {
     e.preventDefault()
@@ -44,29 +42,17 @@ class topicBox extends Component {
     this.state.points[key] = value;
     this.forceUpdate()
   }
-  onChangeSingle(key, value) {
-    this.state.single[key] = value;
-    this.forceUpdate()
-  }
-  addSingle () {
-    this.state.single.list.push({
-      text: '',
-      A: '',
-      B: '',
-      C: '',
-      D: '',
-      num: this.state.single.defalutNum || 0,
-      answer: ''
-    })
-    this.forceUpdate()
-  }
-  upDateSingle (index, key, value) {
-    this.state.single.list[index][key] = value
-    this.forceUpdate()
-  }
-  delSingle (index) {
-    this.state.single.list.splice(index,1)
-    this.forceUpdate()
+  getAllTopicData () {
+    return {
+      topic: {
+        ...this.state.topicSetting,
+        ...this.state.points
+      },
+      single: this.singleRef.current ? this.singleRef.current.state.single.list : [],
+      multiple: this.multipleRef.current ? this.multipleRef.current.state.multiple.list : [],
+      fill: this.fillRef.current ? this.fillRef.current.state.fill.list : [],
+      subjective: this.subjectiveRef.current ? this.subjectiveRef.current.state.subjective.list :[]
+    }
   }
   render () {
     return (
@@ -81,9 +67,11 @@ class topicBox extends Component {
                 </Form.Item>
                 <Form.Item label="题目类型">
                     <Radio.Group value={this.state.topicSetting.type} onChange={this.onChange.bind(this, 'type')}>
-                      <Radio value='1'>公共基础</Radio>
-                      <Radio value="2">计算机</Radio>
-                      <Radio value="3">高等数学</Radio>
+                      {
+                        this.props.typeList.map(item => {
+                          return (<Radio value={item.id} key={item.id}>{item.label}</Radio>)
+                        })
+                      }
                     </Radio.Group>
                 </Form.Item>
                 <Form.Item label="简要描述">
@@ -91,23 +79,23 @@ class topicBox extends Component {
                 </Form.Item>
                 <Form.Item label="时间限制">
                     <Radio.Group value={this.state.topicSetting.setTime} onChange={this.onChange.bind(this, 'setTime')}>
-                      <Radio value="1">不限时</Radio>
-                      <Radio value="2">限时</Radio>
+                      <Radio value="0">不限时</Radio>
+                      <Radio value="1">限时</Radio>
                     </Radio.Group>
                     <InputNumber
                       defaultValue={this.state.topicSetting.time}
-                      onChange={this.onChange.bind(this, 'setTime')}
-                      min="0" size="small" disabled={this.state.topicSetting.setTime==='1'}
+                      onChange={this.onChange.bind(this, 'time')}
+                      min="0" size="small" disabled={this.state.topicSetting.setTime==='0'}
                       className="timeInput">
                     </InputNumber>
                     <span> (单位：分钟)</span>
                 </Form.Item>
-                <Form.Item label="分享设置">
+                {/* <Form.Item label="分享设置">
                     <Radio.Group value={this.state.topicSetting.share} onChange={this.onChange.bind(this, 'share')}>
                       <Radio value="1">公共</Radio>
-                      <Radio value="2">独立</Radio>
+                      <Radio value="0">独立</Radio>
                     </Radio.Group>
-                </Form.Item>
+                </Form.Item> */}
               </Form>
             </div>
           </Collapse.Item>
@@ -117,18 +105,18 @@ class topicBox extends Component {
               <Form model={this.state.points} labelWidth="80" onSubmit={this.onSubmit.bind(this)} className='settingBox'>
                 <Form.Item label="分数上限">
                   <Radio.Group value={this.state.points.haveLimit} onChange={this.onChangePoints.bind(this, 'haveLimit')}>
-                    <Radio value="1">无上限</Radio>
-                    <Radio value="2">有上限</Radio>
+                    <Radio value="0">无上限</Radio>
+                    <Radio value="1">有上限</Radio>
                   </Radio.Group>
                   <InputNumber
                     defaultValue={this.state.points.all}
                     onChange={this.onChangePoints.bind(this, 'all')}
-                    min="0" size="small" disabled={this.state.points.haveLimit==='1'}
+                    min="0" size="small" disabled={this.state.points.haveLimit==='0'}
                     className="numInput">
                   </InputNumber>
                 </Form.Item>
                 <Form.Item label="题型">
-                    <Checkbox.Group value={this.state.points.type} onChange={this.onChangePoints.bind(this, 'type')}>
+                    <Checkbox.Group value={this.state.points.topicType} onChange={this.onChangePoints.bind(this, 'topicType')}>
                       <Checkbox value='1'>单选题</Checkbox>
                       <Checkbox value='2'>多选题</Checkbox>
                       <Checkbox value='3'>填空题</Checkbox>
@@ -141,10 +129,10 @@ class topicBox extends Component {
           <Collapse.Item title="题目设置" name="3">
             <div className='topicSetting'>
               <p className='title'>3、题目设置</p>
-              { this.state.points.type.includes('1') && <Signle /> }
-              { this.state.points.type.includes('2') && <Multiple /> }
-              { this.state.points.type.includes('3') && <Fill /> }
-              { this.state.points.type.includes('4') && <Subjective /> }
+              { this.state.points.topicType.includes('1') && <Signle ref={this.singleRef} /> }
+              { this.state.points.topicType.includes('2') && <Multiple ref={this.multipleRef} /> }
+              { this.state.points.topicType.includes('3') && <Fill ref={this.fillRef} /> }
+              { this.state.points.topicType.includes('4') && <Subjective ref={this.subjectiveRef} /> }
             </div>
           </Collapse.Item>
         </Collapse>

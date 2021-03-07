@@ -9,9 +9,45 @@
   }
   .classList {
     padding: 0 10px;
-    display: flex;
-    flex-wrap: wrap;
-    justify-content: space-around;
+    .classBox {
+      .top {
+        width: 100%;
+        margin: 0 auto;
+        border-bottom: solid 1px #bbbbbb;
+        text-align: center;
+        .title {
+          font-size: 19px;
+          font-weight: 700;
+        }
+      }
+      .body {
+        margin-top: 5px;
+        display: flex;
+        align-items: center;
+        justify-content: space-between;
+        div {
+          flex: 1
+        }
+      }
+      .left {
+        text-align: left;
+      }
+      .center {
+        text-align: center;
+      }
+      .right {
+        text-align: right;
+      }
+      p {
+        margin: 5px 0;
+      }
+      button {
+        padding: 0;
+      }
+      .delBtn {
+        color: #F00;
+      }
+    }
   }
   .selectList {
     .selectInput {
@@ -24,28 +60,5 @@
     color: #F00;
     background-color: rgba(242, 13, 13, .06);
     font-weight: 700;
-  }
-  .classBox {
-    width: 180px;
-    height: 260px;
-    .image {
-      width: 100%;
-      display: block;
-    }
-    .bottom {
-      margin-top: 13px;
-      line-height: 12px;
-      display: flex;
-      justify-content: space-between;
-      align-items: center;
-      .time {
-        font-size: 13px;
-        color: #999;
-      }
-    }
-  }
-  .page {
-    margin-top: 30px;
-    text-align: center;
   }
 }

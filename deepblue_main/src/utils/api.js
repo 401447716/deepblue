@@ -24,5 +24,38 @@ export default {
       type: 'POST',
       data: JSON.stringify(data)
     })
+  },
+  addTopic (data) {
+    return request({
+      url: 'addTopic',
+      type: 'POST',
+      data: JSON.stringify(data)
+    })
+  },
+  delTopic (id) {
+    return request({
+      url: 'delTopic',
+      data: {
+        id
+      }
+    })
+  },
+  getMyTopic (account, type, name) {
+    return request({
+      url: 'getTopic',
+      data: {
+        account,
+        type,
+        name
+      }
+    })
+  },
+  getTopicDetail (id) {
+    return request({
+      url: 'getTopicDetail',
+      data: {
+        id
+      }
+    })
   }
 }

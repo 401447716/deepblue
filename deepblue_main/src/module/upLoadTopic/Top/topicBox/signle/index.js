@@ -1,6 +1,6 @@
 import React, { Component } from 'react'
 import './index.scss'
-import { Input, Form, Checkbox, Radio, InputNumber, Button } from 'element-react';
+import { Input, Form, Radio, InputNumber, Button } from 'element-react';
 
 class single extends Component {
   constructor () {

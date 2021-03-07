@@ -5,6 +5,7 @@ import 'element-theme-default';
 
 import Top from './upLoadTopic/Top/index'
 import NewTopic from './upLoadTopic/NewTopic/index'
+import CheckPage from './upLoadTopic/CheckPage/index'
 
 class App extends Component {
   render () {
@@ -12,6 +13,7 @@ class App extends Component {
       <div className='App'>
         <Top />
         <NewTopic />
+        <CheckPage />
       </div>
     )
   }

@@ -6,6 +6,7 @@ Vue.use(Vuex)
 const store = new Vuex.Store({
   state: {
     userInfo: {
+      id: 0,
       icon: '',
       name: '',
       account: '',

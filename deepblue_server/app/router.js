@@ -12,4 +12,8 @@ module.exports = app => {
   router.get('/getLabel', controller.videoControll.getLabel);
   router.get('/addLabel', controller.videoControll.addLabel);
   router.post('/addCourse', controller.videoControll.addCourse);
+  router.get('/getTopic', controller.topicController.getTopic);
+  router.get('/delTopic', controller.topicController.delTopic);
+  router.get('/getTopicDetail', controller.topicController.getTocicDetail);
+  router.post('/addTopic', controller.topicController.addTopic);
 };

@@ -24,12 +24,13 @@ class fill extends Component {
   addFill () {
     this.state.fill.list.push({
       text: '',
-      num: this.state.fill.defalutNum || 0,
+      num: [this.state.fill.defalutNum || 0],
       answer: []
     })
     this.forceUpdate()
   }
   delFill (index) {
+    console.log(index)
     this.state.fill.list.splice(index,1)
     this.forceUpdate()
   }
@@ -47,6 +48,10 @@ class fill extends Component {
   }
   updateFill (index, key, val) {
     this.state.fill.list[index][key] = val
+    this.forceUpdate()
+  }
+  updateFillNum (index, index2, val) {
+    this.state.fill.list[index].num[index2] = val
     this.forceUpdate()
   }
   updateFillAnswer (index1, index2, val) {
@@ -69,7 +74,7 @@ class fill extends Component {
                 <div className='inputBox'>
                   <span>{index + 1}、</span>
                   <Input value={item.text} onChange={ val => this.updateFillText(index, val) }></Input>
-                  <Button size='small' type="danger" onClick={ index => this.delFill(index) }>删除</Button>
+                  <Button size='small' type="danger" onClick={ () => this.delFill(index) }>删除</Button>
                 </div>
                 {
                   item.answer.map((item2, index2) => {
@@ -80,7 +85,7 @@ class fill extends Component {
                       <span>分值:</span>
                       <InputNumber
                         defaultValue={+this.state.fill.defalutNum}
-                        onChange={(val) => this.updateFill(index, 'num', val)}
+                        onChange={(val) => this.updateFillNum(index, index2, val)}
                         min="0" size="small"
                         className="numInput">
                       </InputNumber>
