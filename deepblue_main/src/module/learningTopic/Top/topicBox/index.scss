@@ -1,0 +1,32 @@
+.topicBox {
+  .top {
+    .title {
+      font-size: 20px;
+      font-weight: 700;
+    }
+    .settingBox{
+      width: 500px;
+    }
+    .timeInput {
+      margin-left: 10px;
+    }
+  }
+  .topicTypeSetting {
+    .title {
+      font-size: 20px;
+      font-weight: 700;
+    }
+    .settingBox{
+      width: 500px;
+      .numInput {
+        margin-left: 10px;
+      }
+    }
+  }
+  .topicSetting {
+    .title {
+      font-size: 20px;
+      font-weight: 700;
+    }
+  }
+}

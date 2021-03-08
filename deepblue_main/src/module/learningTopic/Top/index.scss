@@ -1,0 +1,40 @@
+.top .listBox {
+  max-width: 1500px;
+  margin: 20px auto 0 auto;
+  .content {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    .title {
+      display: flex;
+      align-items: center;
+      flex: 1;
+      .icon {
+        height: 50px;
+        width: 50px;
+        margin-right: 10px;
+        background-image: url('~@/img/inline/wrong-topic.png');
+        background-repeat:no-repeat;
+        background-size: 100% 100%;  
+        background-size: cover;
+      }
+    }
+    .classTypeList {
+      padding-left: 15px;
+      display: flex;
+      align-items: center;
+      span {
+        padding: 5px 10px;
+        display: block;
+        margin-right: 10px;
+        cursor: pointer;
+      }
+      .activeType {
+        border-radius: 6px;
+        color: #F00;
+        background-color: rgba(242, 13, 13, .06);
+        font-weight: 700;
+      }
+    }
+  }
+}

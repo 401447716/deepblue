@@ -1,0 +1,42 @@
+.checkpage {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 90%;
+  height: 100%;
+  padding: 0 5%;
+  background-color:#FFF ;
+  overflow: auto;
+  .top {
+    text-align: center;
+    margin-bottom: 10px;
+    border-bottom: solid 1px #bbbbbb;
+    .closeBtn {
+      float: right;
+      cursor: pointer;
+    }
+    .title {
+      font-size: 22px;
+      font-weight: 700;
+    }
+    .lineBox {
+      display: flex;
+      justify-content: center;
+      p {
+        margin: 10px 30px;
+      }
+    }
+  }
+  .content {
+    pointer-events: none;
+    margin-bottom: 20px;
+    .title {
+      font-size: 18px;
+      font-weight: 700;
+    }
+  }
+  button {
+    float: right;
+    margin-bottom: 20px;
+  }
+}

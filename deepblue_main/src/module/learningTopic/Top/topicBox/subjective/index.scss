@@ -1,0 +1,32 @@
+.subjective {
+  .title {
+    font-size: 18px;
+    font-weight: 700;
+  }
+  .indexModule {
+    margin-bottom: 20px;
+    input {
+      width: 200px;
+    }
+  }
+  .question {
+    .questionBox {
+      padding-top: 10px;
+      margin-bottom: 10px;
+      border-bottom: solid 2px #EFEFEF;
+      .settingBox {
+        display: flex;
+        span {
+          margin: 0 15px 0 10px;
+        }
+        input {
+          width: 120px;
+          margin-bottom: 10px;
+        }
+      }
+      button {
+        margin: 10px 0;
+      }
+    }
+  }
+}

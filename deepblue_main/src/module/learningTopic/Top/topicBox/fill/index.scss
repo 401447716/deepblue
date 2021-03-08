@@ -1,0 +1,36 @@
+.fill {
+  .title {
+    font-size: 18px;
+    font-weight: 700;
+  }
+  .indexModule {
+    margin-bottom: 20px;
+    input {
+      width: 200px;
+    }
+  }
+  .fillBox {
+    padding: 10px;
+    margin-bottom: 20px;
+    border: 1px solid #dad8d8;
+    .inputBox {
+      display: flex;
+      align-items: center;
+      button {
+        margin-left: 10px
+      };
+    }
+    .answerBox {
+      display: flex;
+      align-items: center;
+      margin: 5px 0 5px 20px;
+      .numInput {
+        margin-left: 10px;
+      }
+    }
+    .answerInput {
+      width: 200px;
+      margin: 0 10px 0 5px;
+    }
+  }
+}

@@ -26,7 +26,7 @@ class topicService extends Service {
       if (account) {
         res = await this.app.mysql.query(`select * from type_list, topic_list where type_list.id = topic_list.type and upLoader='${account}' and type=${type} and name like '%${name}%'`);
       } else {
-        res = await this.app.mysql.query(`select * from type_list, topic_list where type_list.id = topic_list.type and type=${type} and name=%${name}%`);
+        res = await this.app.mysql.query(`select * from type_list, topic_list where type_list.id = topic_list.type and type=${type} and name like '%${name}%'`);
       }
       return {
         result: 0,
@@ -34,6 +34,7 @@ class topicService extends Service {
         data: res
       }
     } catch (e) {
+      console.log(e)
       return {
         result: 1,
         msg: '网络错误'

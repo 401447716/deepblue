@@ -1,0 +1,54 @@
+.newclass {
+  max-width: 1500px;
+  margin: 20px auto 0 auto;
+  .box-card {
+    width: 100%;
+  }
+  .clearfix {
+    clear: both;
+  }
+  .classList {
+    padding: 0 10px;
+    .classBox {
+      .top {
+        width: 100%;
+        margin: 0 auto;
+        border-bottom: solid 1px #bbbbbb;
+        text-align: center;
+        .title {
+          font-size: 19px;
+          font-weight: 700;
+        }
+      }
+      .body {
+        margin-top: 5px;
+        display: flex;
+        align-items: center;
+        justify-content: space-between;
+        div {
+          flex: 1;
+          text-align: center;
+        }
+      }
+      p {
+        margin: 5px 0;
+      }
+      button {
+        font-size: 16px;
+        padding: 0;
+      }
+    }
+  }
+  .selectList {
+    .selectInput {
+      width: 300px;
+      margin: 0 10px;
+    }
+  }
+  .activeSelect {
+    border-radius: 6px;
+    color: #F00;
+    background-color: rgba(242, 13, 13, .06);
+    font-weight: 700;
+  }
+}

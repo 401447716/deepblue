@@ -50,6 +50,15 @@ export default {
       }
     })
   },
+  getTopic (type, name) {
+    return request({
+      url: 'getTopic',
+      data: {
+        type,
+        name
+      }
+    })
+  },
   getTopicDetail (id) {
     return request({
       url: 'getTopicDetail',
