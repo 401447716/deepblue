@@ -2,7 +2,7 @@ import React, { Component } from 'react'
 import './index.scss'
 import emitter from '../../../utils/event'
 import Api from '../../../utils/api'
-import { Radio, Button } from 'element-react';
+import { Radio, Button, Message } from 'element-react';
 
 class CheckPage extends Component {
   constructor () {
@@ -10,15 +10,38 @@ class CheckPage extends Component {
     this.state = {
       show: false,
       topicData: {},
-      m: 60,
-      s: 0
+      endtime: null,
+      cutTime: '00:00'
     }
     this.getTopicDetail = this.getTopicDetail.bind(this)
+    this.countdown = this.countdown.bind(this)
+    this.openCountdown = this.openCountdown.bind(this)
+    this.addZero = this.addZero.bind(this)
   }
   componentDidMount(){
     this.eventEmitter = emitter.addListener('getTopicDetail', (val) => {
       this.getTopicDetail(val)
     })
+    this.openCountdown()
+  }
+  openCountdown () {
+    let min = 1
+    this.state.endtime = new Date(new Date().getTime() + min * 60 * 1000).getTime()
+    this.countdown()
+  }
+  addZero (i) {
+    return i < 10 ? '0' + i : i + ''
+  }
+  countdown () {
+    let lefttime = parseInt((this.state.endtime - new Date().getTime()) / 1000)
+    if (lefttime <= 0) {
+      Message.info('结束')
+      return
+    }
+    this.setState({
+      cutTime: `${this.addZero(parseInt(lefttime / 60 % 60))} : ${this.addZero(parseInt(lefttime % 60))}`
+    })
+    setTimeout(this.countdown, 1000)
   }
   getTopicDetail (id) {
     Api.getTopicDetail(id).then(
@@ -45,8 +68,8 @@ class CheckPage extends Component {
         <div className='checkpage'>
           <div className='time'>
             {
-              this.state.m === -1 ? '不限时间' : (
-                <p>{`${this.state.m < 10 ? '0' : ''}${this.state.m}:${this.state.s < 10 ? '0' : ''}${this.state.s}`}</p>
+              this.state.m === -1 ? '' : (
+                <p>{this.state.cutTime}</p>
               )
             }
           </div>
