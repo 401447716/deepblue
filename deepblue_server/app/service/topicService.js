@@ -1,6 +1,93 @@
 const Service = require('egg').Service;
 
 class topicService extends Service {
+  async receiveTopic (data) {
+    try {
+      const answer = await this.getTopicDeatil(data.id)
+      let single = 0;
+      let multiple = 0;
+      let fill = 0;
+      let count = 0;
+      if (data.single) {
+        single = this.dealSingle(data.single, answer.data.single)
+      }
+      if (data.multiple) {
+        multiple = this.dealMultiple(data.multiple, answer.data.multiple)
+      }
+      if (data.fill) {
+        fill = this.dealFill(data.fill, answer.data.fill)
+      }
+      count = single + multiple + fill;
+      return {
+        result: 0,
+        msg: 'success',
+        count
+      }
+    } catch (e) {
+      console.log(e)
+      return {
+        result: 1,
+        msg: 'error'
+      }
+    }
+  }
+  async saveUserTopic (id, account, count) {
+    // try {
+    //   const result = await this.app.mysql.insert('user_topic', data);
+    //   if (result.affectedRows === 0) {
+    //     return 0
+    //   }
+    // } catch (e) {
+    //   return false
+    // }
+  }
+  async dealFill (data, answer) {
+    let count = 0;
+    for (let i = 0; i < answer.length; i++) {
+      let f = true
+      if (data[i].length === 0) {
+        continue
+      }
+      let answers = answer[i].answer.split(',')
+      let nums = answer[i].num.split(',')
+      for (let j = 0; j < data[i].length; j++) {
+        if (data[i][j] === answers[j]) {
+          count += +nums[j]
+        }
+      }
+    }
+    return count
+  }
+  async dealSingle (data, answer) {
+    let count = 0;
+    for (let i = 0; i < answer.length; i++) {
+      if (data[i] === answer[i].answer) {
+        count += +answer[i].num
+      }
+    }
+    return count
+  }
+  async dealMultiple (data, answer) {
+    let count = 0;
+    for (let i = 0; i < answer.length; i++) {
+      let f = true
+      if (data[i].length === 0) {
+        continue
+      }
+      let answers = answer[i].answer.replace(/,/g, '')
+      for (let j = 0; j < data[i].length; j++) {
+        f = answers.includes(data[i][j])
+        if (!f) {
+          break
+        }
+        answers = answers.replace(data[i][j], '')
+      }
+      if (f && answers === '') {
+        count += +answer[i].num
+      }
+    }
+    return count
+  }
   async delTopic (id) {
     try {
       await this.app.mysql.query('DELETE FROM deepblue.topic_list WHERE (id = ?);', [id]);

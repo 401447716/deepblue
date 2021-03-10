@@ -66,5 +66,12 @@ export default {
         id
       }
     })
+  },
+  receiveTopic (data) {
+    return request({
+      url: 'receiveTopic',
+      type: 'POST',
+      data: JSON.stringify(data)
+    })
   }
 }

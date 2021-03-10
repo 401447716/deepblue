@@ -16,4 +16,5 @@ module.exports = app => {
   router.get('/delTopic', controller.topicController.delTopic);
   router.get('/getTopicDetail', controller.topicController.getTocicDetail);
   router.post('/addTopic', controller.topicController.addTopic);
+  router.post('/receiveTopic', controller.topicController.receiveTopic);
 };

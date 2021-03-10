@@ -3,6 +3,16 @@
 const Controller = require('egg').Controller;
 
 class topicController extends Controller {
+  async receiveTopic () {
+    const { ctx } = this;
+    const data = ctx.request.body;
+    try {
+      let res = await ctx.service.topicService.receiveTopic(data);
+      ctx.success(res);
+    } catch (e) {
+      ctx.fail(`内部错误:${e}`);
+    }
+  }
   async getTopic () {
     const { ctx } = this;
     const account = ctx.request.query.account || null;

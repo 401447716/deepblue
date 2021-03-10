@@ -9,9 +9,18 @@
   overflow: auto;
   .time {
     position: fixed;
+    top: 60px;
+    right: 30px;
     font-size: 18px;
     font-weight: 700;
-    border: solid 1px #000;
+    width: 100px;
+    text-align: center;
+    background-color: rgba(117, 109, 109, .3);
+    border: solid 1px rgba(117, 109, 109, .3);
+  }
+  .time:hover {
+    background-color: rgb(173, 173, 173);
+    border: solid 1px rgb(117, 109, 109);
   }
   .top {
     text-align: center;
@@ -34,11 +43,21 @@
     }
   }
   .content {
-    pointer-events: none;
     margin-bottom: 20px;
     .title {
       font-size: 18px;
       font-weight: 700;
+    }
+    .fillItemBox {
+      display: flex;
+      align-items: center;
+      justify-content: left;
+      margin-right: 20px;
+      .el-input {
+        display: inline-block;
+        width: 200px;
+        margin-right: 5px;
+      }
     }
   }
   button {
