@@ -2,7 +2,7 @@ import React, { Component } from 'react'
 import './index.scss'
 import emitter from '../../../utils/event'
 import Api from '../../../utils/api'
-import { Radio, Button, Message, Input, Checkbox, MessageBox } from 'element-react';
+import { Radio, Button, Message, Input, Checkbox, MessageBox, Loading } from 'element-react';
 
 class CheckPage extends Component {
   constructor () {
@@ -18,7 +18,8 @@ class CheckPage extends Component {
         multiple: [],
         fill: []
       },
-      user: ''
+      user: '',
+      fullscreen: false
     }
     Api.getUser().then(
       res => {
@@ -71,20 +72,29 @@ class CheckPage extends Component {
   }
   closeTopic () {
     MessageBox.confirm('将提前提交答案并关闭答题窗口，是否确定', '提示', {}).then(() => {
+      this.setState({
+        fullscreen: true
+      })
       Api.receiveTopic({
         id: this.state.topicData.topic.id,
         account: this.state.user,
         ...this.state.answer
       }).then(
         res => {
+          this.setState({
+            fullscreen: false
+          })
           if (!res.result) {
-            Message({
-              type: 'success',
-              message: '提交成功!'
+            MessageBox.alert( `本次练习成绩为：${res.count} 分`, '提示');
+            emitter.emit("getTopicCount", {})
+            this.setState({
+              show: false
             })
-            // this.setState({
-            //   show: false
-            // })
+          } else {
+            Message({
+              type: 'error',
+              message: '提交失败!'
+            })
           }
         }
       )
@@ -119,6 +129,9 @@ class CheckPage extends Component {
     return (
       this.state.show && (
         <div className='checkpage'>
+          {
+            this.state.fullscreen && <Loading fullscreen={true} />
+          }
           <div className='time'>
             {
               this.state.m === -1 ? '' : (

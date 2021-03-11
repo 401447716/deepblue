@@ -8,20 +8,29 @@ class topicService extends Service {
       let multiple = 0;
       let fill = 0;
       let count = 0;
-      if (data.single) {
+      if (data.single.length) {
         single = this.dealSingle(data.single, answer.data.single)
       }
-      if (data.multiple) {
+      if (data.multiple.length) {
         multiple = this.dealMultiple(data.multiple, answer.data.multiple)
       }
-      if (data.fill) {
+      if (data.fill.length) {
         fill = this.dealFill(data.fill, answer.data.fill)
       }
       count = single + multiple + fill;
-      return {
-        result: 0,
-        msg: 'success',
-        count
+      const topicSave = await this.saveUserTopic(data.id, data.account, count);
+      this.addTopicClickData(count)
+      if (topicSave) {
+        return {
+          result: 0,
+          msg: 'success',
+          count
+        }
+      } else {
+        return {
+          result: 2,
+          msg: 'error'
+        }
       }
     } catch (e) {
       console.log(e)
@@ -31,17 +40,51 @@ class topicService extends Service {
       }
     }
   }
-  async saveUserTopic (id, account, count) {
-    // try {
-    //   const result = await this.app.mysql.insert('user_topic', data);
-    //   if (result.affectedRows === 0) {
-    //     return 0
-    //   }
-    // } catch (e) {
-    //   return false
-    // }
+  addTopicClickData (count) {
+    this.app.mysql.query('update deepblue.topic_list set ave = ave + ?, clickNum = clickNum + 1', [count]).then(
+      res => {
+        console.log(res)
+      }
+    )
   }
-  async dealFill (data, answer) {
+  async saveUserTopic (id, account, count) {
+    try {
+      let result = []
+      const res1 = await this.app.mysql.query('select * from deepblue.user_topic where topic_id=? and user_account=?', [id, account])
+      if (res1.length === 0) {
+        result = await this.app.mysql.query('INSERT INTO deepblue.user_topic (topic_id, user_account, count) VALUES (?, ?, ?);', [id, account, count]);
+      } else {
+        result = await this.app.mysql.query('UPDATE deepblue.user_topic SET count = ? WHERE (id = ?);', [count, res1[0].id]);
+      }
+      if (result.affectedRows === 0) {
+        return 0
+      }
+      return 1
+    } catch (e) {
+      console.log(e)
+      return 0
+    }
+  }
+  async getTopicCount (account) {
+    console.log(account)
+    try {
+      const result = await this.app.mysql.query("select * from deepblue.user_topic where user_account=?", [account])
+      return {
+        result: 0,
+        msg: 'ok',
+        data: {
+          count: result
+        }
+      }
+    } catch (e) {
+      console.log(e)
+      return {
+        result: 1,
+        msg: 'error'
+      }
+    }
+  }
+  dealFill (data, answer) {
     let count = 0;
     for (let i = 0; i < answer.length; i++) {
       let f = true
@@ -58,7 +101,7 @@ class topicService extends Service {
     }
     return count
   }
-  async dealSingle (data, answer) {
+  dealSingle (data, answer) {
     let count = 0;
     for (let i = 0; i < answer.length; i++) {
       if (data[i] === answer[i].answer) {
@@ -67,11 +110,11 @@ class topicService extends Service {
     }
     return count
   }
-  async dealMultiple (data, answer) {
+  dealMultiple (data, answer) {
     let count = 0;
     for (let i = 0; i < answer.length; i++) {
       let f = true
-      if (data[i].length === 0) {
+      if (!data[i]) {
         continue
       }
       let answers = answer[i].answer.replace(/,/g, '')

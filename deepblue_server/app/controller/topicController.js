@@ -25,6 +25,16 @@ class topicController extends Controller {
       ctx.fail(`内部错误:${e}`);
     }
   }
+  async getTopicCount () {
+    const { ctx } = this;
+    const account = ctx.request.query.account || null;
+    try {
+      let res = await ctx.service.topicService.getTopicCount(account);
+      ctx.success(res);
+    } catch (e) {
+      ctx.fail(`内部错误:${e}`);
+    }
+  }
   async delTopic () {
     const { ctx } = this;
     const id = ctx.request.query.id || null;

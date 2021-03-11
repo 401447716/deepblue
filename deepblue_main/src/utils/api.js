@@ -59,6 +59,13 @@ export default {
       }
     })
   },
+  getTopicCount (account) {
+    return request({
+      url: 'getTopicCount',
+      data: {
+        account}
+    })
+  },
   getTopicDetail (id) {
     return request({
       url: 'getTopicDetail',

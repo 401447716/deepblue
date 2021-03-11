@@ -90,7 +90,7 @@ class Top extends Component {
                         <p>时间上限：{item.time !== -1 ? item.time + ' 分钟' : '无'}</p>
                       </div>
                       <div className='center'>
-                        <p>平均得分：{item.ave}</p>
+                        <p>平均得分：{(item.ave / item.clickNum).toFixed(2)}</p>
                         <p>点击次数：{item.clickNum}</p>
                       </div>
                       <div className='right'>

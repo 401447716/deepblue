@@ -11,11 +11,20 @@ class Top extends Component {
       classList: [],
       select: 1,
       keyName: '',
-      val: {}
+      val: {},
+      user: '',
+      countList: []
     }
+    Api.getUser().then(
+      res => {
+        this.state.user = res.getUserInfo.account
+        this.getTopicCount()
+      }
+    )
     this.clickSelect = this.clickSelect.bind(this)
     this.getTopic = this.getTopic.bind(this)
     this.openTopic = this.openTopic.bind(this)
+    this.getTopicCount = this.getTopicCount.bind(this)
   }
   clickSelect (val) {
     this.setState({
@@ -23,9 +32,12 @@ class Top extends Component {
     })
   }
   componentDidMount(){
-    this.eventEmitter = emitter.addListener('getTopic', (val) => {
+    this.eventEmitter1 = emitter.addListener('getTopic', (val) => {
       this.state.val = val
       this.getTopic()
+    })
+    this.eventEmitter2 = emitter.addListener('getTopicCount', () => {
+      this.getTopicCount()
     })
   }
   getTopic () {
@@ -37,6 +49,20 @@ class Top extends Component {
             classList: res.data
           })
         }
+      }
+    )
+  }
+  getTopicCount () {
+    Api.getTopicCount(this.state.user).then(
+      res => {
+        console.log(res.data.count)
+        let data = {}
+        for (let i of res.data.count) {
+          data[i.topic_id] = i.count
+        }
+        this.setState({
+          countList: data
+        })
       }
     )
   }
@@ -75,7 +101,7 @@ class Top extends Component {
                       <div className='left'>
                         <p>分数上限：{item.limit !== -1 ? item.limit : '无'}</p>
                         <p>时间上限：{item.time !== -1 ? item.time + ' 分钟' : '无'}</p>
-                        <p>历史得分：</p>
+                        <p>最新得分：{this.state.countList[item.id] || 0} 分</p>
                       </div>
                       <div className='right'>
                         <p>发布时间：{new Date(parseInt(item.upTime)).toLocaleDateString()}</p>
